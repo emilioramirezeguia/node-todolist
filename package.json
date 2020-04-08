@@ -1,0 +1,19 @@
+{
+  "name": "todolist-v1",
+  "version": "1.0.0",
+  "description": "This is an example To-Do List app which we'll use to understand howtemplates work.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emilio Ramirez",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.6",
+    "request": "^2.88.2"
+  }
+}

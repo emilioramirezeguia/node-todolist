@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://emilioramirezeguia:paulfranki@cluster0-4nwda.mongodb.net/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connect("mongodb+srv://emilioramirezeguia:test@cluster0-4nwda.mongodb.net/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 //This is the Mongoose schema
 const itemsSchema = new mongoose.Schema({
@@ -49,7 +49,7 @@ app.get("/", function(req, res){
   Item.find( function(err, items) {
     if (err) {
       console.log(err);
-    } else if (defaultItems.length == 0) {
+    } else if (items.length == 0) {
       Item.insertMany(defaultItems, function(err){
         if (err) {
           console.log(err);
@@ -105,6 +105,15 @@ app.get("/:listName", function(req, res){
 
         list.save();
         res.redirect("/" + listName);
+      } else if (foundList.items.length == 0){
+        console.log(foundList.items.length);
+        foundList.items.push(defaultItems);
+        List.findOneAndUpdate({name: listName}, {$push: {items: defaultItems}}, function(err){
+          if (!err){
+            console.log("Successfully added default items");
+            res.redirect("/" + listName);
+          }
+        })
       } else {
         //Show an existing list
         res.render("list", {
